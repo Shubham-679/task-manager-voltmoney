@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Layout from "./Components/Layout/Layout";
+import Todo from "./Pages/Todo";
+import { motion, MotionConfig } from "framer-motion";
+import { TodoProvider } from "./Context/TodoContext";
 
 function App() {
+  const container = {
+    show: {
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.55,
+      },
+    },
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <TodoProvider>
+      <MotionConfig reducedMotion="user">
+        <motion.div
+          variants={container}
+          initial="hide"
+          animate="show"
+          className={`App min-h-screen text-[#494C6B]`}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Layout>
+            <Todo />
+          </Layout>
+        </motion.div>
+      </MotionConfig>
+    </TodoProvider>
   );
 }
 
